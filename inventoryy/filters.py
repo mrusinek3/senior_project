@@ -3,9 +3,15 @@ from .models import *
 from django_filters import CharFilter, NumberFilter, OrderingFilter, DateFilter, DateRangeFilter, DateFromToRangeFilter
 from django_filters.widgets import RangeWidget
 
+# Filters used to filter the data within the table
 
+# Filter we see in the List of Products page
+# Quantity filters the quantity by those less than the inputted value
+# Item name filters the item names based off the inputted characters, case insensitive
+# Sorting takes in 4 choices fields (filter quantity ascending, filter quantity descending, filter date ascending, filter date descending)
 class ProductFilter(django_filters.FilterSet):
-    item_name = CharFilter(required=False, field_name='item_name', lookup_expr='contains', label='Item Name')
+
+    item_name = CharFilter(required=False, field_name='item_name', lookup_expr='icontains', label='Item Name')
     quantity = NumberFilter(required=False, field_name='quantity', lookup_expr='lte', label='Quantity')
 
     sorting = OrderingFilter(
