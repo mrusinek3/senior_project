@@ -3,14 +3,16 @@ from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import MinValueValidator
 
-
 # Create your models here.
+
+# Database Model used to store the information pertaining to a Category
 class Category(models.Model):
     category_name = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.category_name
 
+# Database Model used to store the information pertaining to a Product
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     item_name = models.CharField(max_length=100, blank=True, null=True)
@@ -28,7 +30,8 @@ class Product(models.Model):
     
     def __str__(self):
         return self.item_name
-    
+
+# Database Model used to store the usage history of information all products (adds a row of data everytime a product is issued or received)
 class ProductHistoryLog(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     item_name = models.CharField(max_length=100, blank=True, null=True)

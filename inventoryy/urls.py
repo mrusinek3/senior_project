@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 
+# Every path in this file is associated with a view that was created in the views.py file
+# Each view is used to render an HTML template at the given URL path
 urlpatterns = [
     path('', auth_views.LoginView.as_view(template_name="users/login.html", redirect_authenticated_user=True), name='login'),
     path('dashboard/admin/', views.admin_panel, name='admin-panel'),

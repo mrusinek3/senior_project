@@ -18,6 +18,8 @@ from django.urls import path, include
 from users import views as user_views
 from django.contrib.auth import views as auth_views
 
+# these are the URL path that handle all the User logic on the application
+# the base path includes the urls.py from the inventoryy app to allow use of those paths as well
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
@@ -31,5 +33,5 @@ urlpatterns = [
     path('', include('inventoryy.urls')),
 ]
 
-
+# began looking into how to style the django default administration/database panel
 admin.site.site_header = "My Inventory Management Administration Page"

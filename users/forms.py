@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
+# Form used to register users
 class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length=100, label="First Name", required=True,
                                  widget=forms.TextInput(attrs={'placeholder': 'Enter First Name...'}))
@@ -25,6 +26,7 @@ class UserRegisterForm(UserCreationForm):
         self.fields['password2'].widget = forms.PasswordInput(attrs={'placeholder': 'Confirm Password...'})
         self.fields['password2'].label = "Password Confirmation"
 
+# Form used to update user information
 class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100, label="First Name", required=True,
                                  widget=forms.TextInput(attrs={'placeholder': 'Enter First Name...'}))
@@ -43,6 +45,7 @@ class UserUpdateForm(forms.ModelForm):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget = forms.TextInput(attrs={'placeholder': 'Enter Username...'})
 
+# Form used to updated the added user information fields that appear in the profile page
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile

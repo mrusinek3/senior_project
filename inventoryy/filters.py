@@ -35,6 +35,9 @@ class ProductFilter(django_filters.FilterSet):
         model = Product
         fields = ['category', 'item_name', 'quantity']
 
+# Filter we see in the Products Usage History page
+# Item name filters the item names based off the inputted characters, case insensitive
+# DateRangeFilter provides 5 ranges of dates to filter with (today, yesterday, last week, last month, last year)
 class ProductHistoryFilter(django_filters.FilterSet):
     item_name = CharFilter(required=False, field_name='item_name', lookup_expr='icontains', label='Item Name')
     date_range = DateRangeFilter(field_name="last_updated", label="Date")
@@ -44,6 +47,9 @@ class ProductHistoryFilter(django_filters.FilterSet):
         model = Product
         fields = ['category', 'item_name']
 
+# Filter we see in the Product Count pages
+# Quantity filters the quantity by those less than the inputted value
+# Item name filters the item names based off the inputted characters, case insensitive
 class ProductCountFilter(django_filters.FilterSet):
     item_name = CharFilter(required=False, field_name='item_name', lookup_expr='icontains', label='Item Name')
     quantity = NumberFilter(required=False, field_name='quantity', lookup_expr='lte', label='Quantity')

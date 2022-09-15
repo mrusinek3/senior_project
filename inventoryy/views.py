@@ -13,6 +13,7 @@ from django.db.models import Sum, Count
 
 # Create your views here.
 
+# function view for the administration panel
 @login_required
 def admin_panel(request):
     products = Product.objects.all().order_by('id')
@@ -35,6 +36,7 @@ def admin_panel(request):
     }
     return render(request, 'inventoryy/admin_panel.html', context)
 
+# function based view for the employee panel
 @login_required
 def employee_panel(request):
     products = Product.objects.all().order_by('id')
@@ -57,11 +59,11 @@ def employee_panel(request):
     }
     return render(request, 'inventoryy/employee_panel.html', context)
 
+# function based view for the about page
 def about(request):
     return render(request, 'inventoryy/about.html', { "title": "about"})
 
 # function based view that displays a table of all the products with their corresponding details that are within the database
-# also used to search for a product by category name or item name
 @login_required
 def list_products(request):
     all_products = Product.objects.all().order_by('id')

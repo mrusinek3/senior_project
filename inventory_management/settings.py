@@ -131,10 +131,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# tells django where to redirect users after they login
 LOGIN_REDIRECT_URL = 'admin-panel'
 
+# tells django where to send users to login 
 LOGIN_URL = 'login'
 
+# gmail domain used in order for a user to request a password reset via email
+# the user must have a @gmail.com email linked to their account for this functionality to work!!!
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
