@@ -66,7 +66,7 @@
                                     {{ product.quantity }}
                                 {% endif %}
                             </td>
-                            <td><a href="{% url 'reorder-product' product.id %}" class="product-link-update">{{ product.reorder_level }}</a></td>
+                            <td>{{ product.reorder_level }}</a></td>
                             <td>{{ product.date_created }}</td>
                             <td>{{ product.last_updated }}</td>
                         </tr>

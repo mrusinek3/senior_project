@@ -46,7 +46,11 @@
                                     {{ product.quantity }}
                                 {% endif %}
                             </td>
-                            <td><a href="{% url 'reorder-product' product.id %}" class="product-link-update">{{ product.reorder_level }}</a></td>
+                            {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+                                <td><a href="{% url 'reorder-product' product.id %}" class="product-link-update">{{ product.reorder_level }}</a></td>
+                            {% else %}
+                                <td> {{ product.reorder_level }}</td>
+                            {% endif %}
                             <td>{{ product.date_created }}</td>
                             <td>{{ product.last_updated }}</td>
                             {% if user.is_authenticated and user.is_staff and user.is_superuser %}

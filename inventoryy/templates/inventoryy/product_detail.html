@@ -21,6 +21,7 @@
                         <th>Category</th>
                         <th>Item Name</th>
                         <th>Quantity</th>
+                        <th>Reorder Level</th>
                         <th>Created</th>
                         <th>Last Updated</th>
                         {% if user.is_authenticated and user.is_staff and user.is_superuser %}
@@ -33,7 +34,20 @@
                             <td>{{ product.id }}</td>
                             <td>{{ product.category }}</td>
                             <td><a href="{% url 'single-product' product.id %}" class="product-link-update">{{product.item_name}}</a></td>
-                            <td>{{ product.quantity }}</td>
+                            <td>
+                                {% if product.quantity <= product.reorder_level %}
+                                    <section class="quantity-low-alert">
+                                        {{ product.quantity }}
+                                    </section>
+                                {% else %}
+                                    {{ product.quantity }}
+                                {% endif %}
+                            </td>
+                            {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+                                <td><a href="{% url 'reorder-product' product.id %}" class="product-link-update">{{ product.reorder_level }}</a></td>
+                            {% else %}
+                                <td> {{ product.reorder_level }}</td>
+                            {% endif %}
                             <td>{{ product.date_created }}</td>
                             <td>{{ product.last_updated }}</td>
                             {% if user.is_authenticated and user.is_staff and user.is_superuser %}
