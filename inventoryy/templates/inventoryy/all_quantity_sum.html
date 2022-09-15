@@ -1,0 +1,26 @@
+{% extends "inventoryy/base.html" %}
+
+{% block content %}
+    <section class="content-section pb-5 pr-0 pl-0 table-back w-75" style="margin-left:12.5%;">
+        <h3 class="table-header text-center pt-2 pb-2 border-bottom">Count Information</h3>
+        </br>
+        <section class="table-responsive">
+            <table class="table table-dark text-center">
+                <thead>
+                    <tr>
+                        <th>Total Quantity</th>
+                        {% for category in categories %}
+                            <th>{{ category.category_name }}</br>Products</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ all_products.data }}</td>
+                        {% for category in categories %}
+                            <td>{{ category.items_count }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+{% endblock content %}

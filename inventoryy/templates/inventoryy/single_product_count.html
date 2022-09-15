@@ -1,0 +1,75 @@
+{% extends "inventoryy/base.html" %}
+{% load crispy_forms_tags %}
+{% load inventoryy_extras %}
+
+{% block content %}
+    <section class="content-section table-back pb-5 pr-0 pl-0">
+        <h3 class="table-header text-center pt-2 pb-2 border-bottom">Current Products</h3>
+        <section class="product-search text-center">
+            <form method="GET" autocomplete="off" class="search-form">
+                {% csrf_token %}
+                        {{ filters.form|crispy }}
+                <section class="form-group text-center">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </section>
+            </form>
+        </section>
+        </br>
+        <section class="table-responsive">
+            <table class="table table-dark text-center">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products_list %}
+                        <tr>
+                            <td>{{ product.category }}</td>
+                            <td><a href="{% url 'single-product' product.id %}" class="product-link-update">{{ product.item_name }}</a></td>
+                            <td>
+                                {% if product.quantity <= product.reorder_level %}
+                                    <section class="quantity-low-alert">
+                                        {{ product.quantity }}
+                                    </section>
+                                {% else %}
+                                    {{ product.quantity }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr></br>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if products_list.has_previous %}
+                        <li class="page-item"><a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo First</a></li>
+                        <li class="page-item"><a class="page-link" href="{% my_url products_list.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">&laquo First</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    {% endif %}
+
+                    {% for i in products_list.paginator.page_range %}
+                        {% if i == products_list.number %}
+                            <li class="page-item active"><a class="page-link" href="{% my_url forloop.counter 'page' request.GET.urlencode %}">{{ forloop.counter }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{% my_url forloop.counter 'page' request.GET.urlencode %}">{{ forloop.counter }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if products_list.has_next %}
+                        <li class="page-item"><a class="page-link" href="{% my_url products_list.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+                        <li class="page-item"><a class="page-link" href="{% my_url products_list.paginator.num_pages 'page' request.GET.urlencode %}">Last &raquo</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#">Last &raquo</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </section>
+    </section>
+{% endblock content %}

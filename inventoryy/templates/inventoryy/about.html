@@ -1,0 +1,37 @@
+{% extends "inventoryy/base.html" %}
+
+{% block content %}
+    <section class="content-section pl-0 pr-0 w-75" style="margin-left:12.5%;background-color: rgba(164, 196, 228, 0.734);">
+        <h2 class="text-center border-bottom pb-3 table-header">About This Application</h2>
+        <p class="pt-2 pl-2 text-dark font-weight-bold text-center">This is an iventory management system application that can be used to manage the products in an inventory</p>
+        <p class="pt-2 pl-2 text-dark font-weight-bold text-center">This application was developed using the Django Web Development Framework</p>
+        </br>
+        <section class = "row functions-back">
+            <section class="col-6">
+                <ul class="list-group functions-list">
+                    <li class="list-group-item disabled text-dark font-weight-bold list-header pb-0">Avaliable Functionalities For Admininstrator</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  View, Add, Update, Delete Products</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  View, Add, Update, Delete Categories</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  View and Delete Users</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  Count All Products or A Single Product</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  View Inventory Usage History</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  Export Inventory Usage History to CSV File</li>
+                    <li class="ml-5 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  Export The Current Inventory To CSV File</li>
+                </ul>
+            </section>
+            <section class="col-6">
+                <ul class="list-group functions-list">
+                    <li class="list-group-item disabled text-dark font-weight-bold list-header pb-0">Avaliable Functionalities For Employees</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  View Products</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  View Categories</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  Count All Products or A Single Product</li>
+                    <li class="ml-5 pb-0 list-group-item"><i class='fas fa-long-arrow-alt-right'></i>  View Inventory Usage History</li>
+                </ul>
+            </section>
+        </section>
+        </br>
+        <p class="pt-4 text-dark font-weight-bold text-center">Created By  <i class='fas fa-long-arrow-alt-right'></i>  Mitchell Rusinek</p>
+        <p class="pl-2 text-dark font-weight-bold text-center">For  <i class='fas fa-long-arrow-alt-right'></i> LTU Senior Project</p>
+        <p class="pl-2 text-dark font-weight-bold text-center">EST 2022</p>
+    </section>
+{% endblock content %}

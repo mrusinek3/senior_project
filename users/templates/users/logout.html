@@ -1,0 +1,10 @@
+{% extends "inventoryy/base.html" %}
+
+{% block content %}
+    <section class="content-section pl-0 pr-0 mt-5 logout-back">
+        <h2 class="text-center">You have been logged out!</h2>
+        <section class="border-top pt-3">
+            <p class="text-center">Already have an Account?</br><a class="logout-link" href="{% url 'login' %}">Login In Again</a></p>
+        </section>
+    </section>
+{% endblock content %}

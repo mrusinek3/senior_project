@@ -1,0 +1,22 @@
+{% extends "inventoryy/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <section class="content-section pl-0 pr-0 register">
+        <form method="POST">
+            {% csrf_token %}
+            <section class="form-group">
+                <h3 class="border-bottom text-center pb-2">Join Today!</h3>
+                <section class="border-bottom pr-5 pl-5 mb-4">
+                    {{ form|crispy }}
+                </section>
+            </section>
+            <section class="form-group text-center mr-5">
+                <button class="btn btn-outline-info mr-3" type="submit">Sign Up</button>
+                <button class="btn btn-outline-info ml-3" type="reset">Reset</button>
+            </section>
+        </form>
+        <section class="border-top pt-3"></section>
+            <p class="text-center mr-5">Already have an Account?</br><a class="login-link" href="{% url 'login' %}">Sign In</a></p>
+    </section>
+{% endblock content %}

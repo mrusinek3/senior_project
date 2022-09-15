@@ -1,0 +1,25 @@
+{% extends "inventoryy/base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+        <section class="content-section pl-0 pr-0 add-product-back">
+            <form method="POST">
+                {% csrf_token %}
+                <section class="form-group">
+                    <h3 class="border-bottom text-center pb-2">Are you sure you want to delete the product "{{ all_products.item_name }}"? </h3>
+                </section>
+                <section class="form-group text-center">
+                    <button class="mr-3 btn btn-outline-light delete-confirm" type="submit">Yes</button>
+                    <a href="{% url 'delete-product' %}" class="btn btn-outline-light delete-cancel">Cancel</a>
+                </section>
+            </form>
+        </section>
+    {% else %}
+        <section class="content-section pl-0 pr-0 mt-5 w-50 pb-4 logout-back" style="margin-left:25%;">
+            <h2 class="text-center pb-2">YOU DO NOT HAVE ACCESS TO THIS PAGE!</h2>
+            <section class="text-center">
+                <a href="{% url 'employee-panel' %}" class="btn btn-outline-dark ml-5 add-confirm">Go To Employee Dashboard</a>
+            </section>
+        </section>
+    {% endif %}
+{% endblock content %}

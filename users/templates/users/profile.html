@@ -1,0 +1,49 @@
+{% extends "inventoryy/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <section class="card" style="width:50%; margin-left:25%;border-radius:20px;border:2px solid black;">
+        <section class="card-header bg-steel text-white text-center font-weight-bold mr-1 ml-1 mt-1" style="border-radius:15px;">
+        {{user}}'s Profile Information
+        </section>
+        <section class="border-bottom border-dark pt-1"></section>
+        <section class='card-body'>
+            <section class="row bg-white">
+                <section class="col-3 border-right text-right">
+                    <h5 class="border-bottom">Username</h5>
+                    <h5 class="border-bottom">First Name</h5>
+                    <h5 class="border-bottom">Last Name</h5>
+                    <h5 class="border-bottom">Email</h5>
+                    <h5 class="border-bottom">Phone Number</h5>
+                    <h5 class="border-bottom">Address</h5>
+                </section>
+                <section class="col-9 text-center">
+                    <h5 class="border-bottom">{{ user.username }}</h5>
+                    <h5 class="border-bottom">{{ user.first_name }}</h5>
+                    <h5 class="border-bottom">{{ user.last_name }}</h5>
+                    <h5 class="border-bottom">{{ user.email }}</h5>
+                    <h5 class="border-bottom">{{ user.profile.phone }}</h5>
+                    <h5 class="border-bottom">{{ user.profile.address }}</h5>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section class="content-section pl-0 pr-0 login">
+        <form method="POST">
+            {% csrf_token %}
+            <section class="form-group">
+                <h3 class="border-bottom text-center pb-2">Update Profile</h3>
+                <section class="border-bottom pr-5 pl-5 mb-4">
+                    {{ user_form|crispy }}
+                    {{ profile_form|crispy }}
+                </section>
+            </section>
+            <section class="form-group text-center">
+                <button class="btn btn-outline-dark mr-2 delete-confirm" type="submit">Update</button>
+            </section>
+            <section class="form-group text-center">
+                <a href="{% url 'password_reset' %}">Forgot Password?</a>
+            </section
+        </form>
+    </section>
+{% endblock content %}

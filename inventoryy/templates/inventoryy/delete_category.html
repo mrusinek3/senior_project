@@ -1,0 +1,65 @@
+{% extends "inventoryy/base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+        <section class="content-section pb-5 pr-0 pl-0 table-back w-75" style="margin-left:12.5%;">
+            <h3 class="table-header text-center pt-2 pb-2 border-bottom">Delete Category</h3>
+            </br>
+            <section class="table-responsive">
+                <table class="table table-dark text-center">
+                    <thead>
+                        <tr>
+                            <th>Category No.</th>
+                            <th>Category</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in category_list %}
+                            <tr>
+                                <td>{{ category.id }}</td>
+                                <td>{{ category.category_name }}</td>
+                                <td><a href="{% url 'confirm-delete-category' category.id %}"><i class="fa fa-trash fa-lg delete-button"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr></br>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        {% if category_list.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ category_list.previous_page_number }}">Previous</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">&laquo First</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        {% endif %}
+
+                        {% for i in category_list.paginator.page_range %}
+                            {% if i == category_list.number %}
+                                <li class="page-item active"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if category_list.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ category_list.next_page_number }}">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ category_list.paginator.num_pages }}">Last &raquo</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">Last &raquo</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </section>
+        </section>
+    {% else %}
+        <section class="content-section pl-0 pr-0 mt-5 w-50 pb-4 logout-back" style="margin-left:25%;">
+            <h2 class="text-center pb-2">YOU DO NOT HAVE ACCESS TO THIS PAGE!</h2>
+            <section class="text-center">
+                <a href="{% url 'employee-panel' %}" class="btn btn-outline-dark ml-5 add-confirm">Go To Employee Dashboard</a>
+            </section>
+        </section>
+    {% endif %}
+{% endblock content %}

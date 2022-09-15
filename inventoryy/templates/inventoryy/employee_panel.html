@@ -1,0 +1,106 @@
+{% extends "inventoryy/base.html" %}
+{% load crispy_forms_tags %}
+{% load inventoryy_extras %}
+
+{% block content %}
+    <section class="content-section table-back pb-5 pr-0 pl-0">
+        <h1 class="table-header text-center pt-4 pb-4 border-bottom">Employee Panel</h1>
+        <section class="row text-center pt-2 admin-options mr-5 ml-5 mt-3">
+            <section class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <h3 class ="options-header"><span class="border-bottom border-dark pb-2">Product Options</span></h3>
+                <a href="{% url 'all-products' %}" class="btn btn-dark add-confirm mb-3 mt-3">View Products</a></br>
+            </section>
+            <section class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <h3 class ="options-header"><span class="border-bottom border-dark pb-2">Category Options</span></h3>
+                <a href="{% url 'all-categories' %}" class="btn btn-dark add-confirm mb-3 mt-3">View Categories</a></br>
+            </section>
+            <section class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                <h3 class ="options-header"><span class="border-bottom border-dark pb-2">Usage Options</span></h3>
+                <a href="{% url 'products-quantity-sum' %}" class="btn btn-dark add-confirm mb-3 mt-3">Count All Products</a></br>
+                <a href="{% url 'product-history-log' %}" class="btn btn-dark add-confirm mb-3">Usage History Log</a></br>
+            </section>
+        </section>
+        <section class="border-bottom pt-3"></section>
+        <h3 class="w-25 text-center mt-3 pb-2 pt-2 font-weight-bold admin-info-header">Current Status</h3>
+        <section class="container">
+            <section class="row mb-4 mt-4 pt-3 pb-3 text-center admin-info">
+                <section class="col-4 border-right border-dark">
+                    <h3>Products</h3>
+                    <h3> {{ product_count }} </h3>
+                </section>
+                <section class="col-4 border-right border-dark">
+                    <h3>Categories</h3>
+                    <h3>{{ category_count }}</h3>
+                </section>
+                <section class="col-4">
+                    <h3>Quantity</h3>
+                    <h3> {{ quantity_count.data }} </h3>
+                </section>
+            </section>
+        </section>
+        <section class="table-responsive">
+            <table class="table table-dark text-center">
+                <thead>
+                    <tr>
+                        <th>Item No.</th>
+                        <th>Category</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Reorder Level</th>
+                        <th>Created</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products_list %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.category }}</td>
+                            <td><a href="{% url 'single-product' product.id %}" class="product-link-update">{{ product.item_name }}</a></td>
+                            <td>
+                                {% if product.quantity <= product.reorder_level %}
+                                    <section class="quantity-low-alert">
+                                        {{ product.quantity }}
+                                    </section>
+                                {% else %}
+                                    {{ product.quantity }}
+                                {% endif %}
+                            </td>
+                            <td><a href="{% url 'reorder-product' product.id %}" class="product-link-update">{{ product.reorder_level }}</a></td>
+                            <td>{{ product.date_created }}</td>
+                            <td>{{ product.last_updated }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr></br>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if products_list.has_previous %}
+                        <li class="page-item"><a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo First</a></li>
+                        <li class="page-item"><a class="page-link" href="{% my_url products_list.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">&laquo First</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    {% endif %}
+
+                    {% for i in products_list.paginator.page_range %}
+                        {% if i == products_list.number %}
+                            <li class="page-item active"><a class="page-link" href="{% my_url forloop.counter 'page' request.GET.urlencode %}">{{ forloop.counter }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{% my_url forloop.counter 'page' request.GET.urlencode %}">{{ forloop.counter }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if products_list.has_next %}
+                        <li class="page-item"><a class="page-link" href="{% my_url products_list.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+                        <li class="page-item"><a class="page-link" href="{% my_url products_list.paginator.num_pages 'page' request.GET.urlencode %}">Last &raquo</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#">Last &raquo</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </section>
+    </section>
+{% endblock content %}

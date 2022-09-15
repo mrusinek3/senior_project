@@ -1,0 +1,51 @@
+{% extends "inventoryy/base.html" %}
+{% load crispy_forms_tags %}
+{% load inventoryy_extras %}
+
+{% block content %}
+<section class="content-section table-back pb-5 pr-0 pl-0">
+    {% for product in all_products %}
+        <h3 class="table-header text-center pt-2 pb-2 border-bottom">{{ product.item_name }} Detail's</h3></br>
+        {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+            <section class=" ml-5">
+                <a href ="{% url 'issue-product' product.id %}" class="ml-5 mb-3 btn btn-outline-light delete-cancel">Issue This Product</a>
+                <a href="{% url 'receive-product' product.id %}" class="mb-3 ml-4 btn btn-outline-light delete-confirm">Receive This Product</a>
+                <a href="{% url 'reorder-product' product.id %}" class="mb-3 ml-4 btn btn-outline-light delete-confirm">Set Reorder Level</a>
+            </section>
+        {% endif %}
+            <section class="table-responsive">
+            <table class="table table-dark text-center">
+                <thead>
+                    <tr>
+                        <th>Item No.</th>
+                        <th>Category</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Created</th>
+                        <th>Last Updated</th>
+                        {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+                            <th>Modify</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.category }}</td>
+                            <td><a href="{% url 'single-product' product.id %}" class="product-link-update">{{product.item_name}}</a></td>
+                            <td>{{ product.quantity }}</td>
+                            <td>{{ product.date_created }}</td>
+                            <td>{{ product.last_updated }}</td>
+                            {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+                                <td>
+                                    <a href="{% url 'confirm-delete-product' product.id %}" class="pr-2"><i class="fa fa-trash fa-lg delete-button"></i></a>
+                                    <a href="{% url 'update-product-form' product.id %}" class="pt-3"><i class='fas fa-edit fa-lg update-button'></i></i></a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+    {% endfor %}
+{% endblock content %}
